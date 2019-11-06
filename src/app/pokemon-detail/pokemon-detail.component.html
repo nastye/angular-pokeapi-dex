@@ -1,5 +1,6 @@
 <h2>{{pokemon.id}} {{pokemon.name | uppercase}}</h2>
-<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{pokemon.id}}.png">
+<img *ngIf="pokemon.id > 0"
+  src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{pokemon.id}}.png">
 
 <ul>
   <li *ngFor="let move of moves">
