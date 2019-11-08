@@ -5,6 +5,20 @@
 
 @import '@angular/material/prebuilt-themes/purple-green.css';
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-li { margin: 2px; }
+html, body {
+  height: 100%;
+
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+ul { 
+  width: inherit;
+  list-style-type: none;
+}
+
+li {
+  margin: 2px;
+}
