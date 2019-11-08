@@ -1,6 +1,6 @@
 <ul>
   <li *ngFor="let pokemon of pokemon_entries">
-    <a routerLink="/pokemon/{{pokemon.entry_number}}">
+    <a mat-stroked-button routerLink="/pokemon/{{pokemon.entry_number}}">
       <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{pokemon.entry_number}}.png">
       <span>{{pokemon.pokemon_species.name | titlecase}}</span>
     </a>

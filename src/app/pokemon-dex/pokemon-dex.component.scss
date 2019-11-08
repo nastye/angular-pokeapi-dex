@@ -4,16 +4,20 @@ ul {
 }
 
 li {
+  float: left;
+}
+
+span { display: blocK; }
+/*
   width: 120px;
   height: 120px;
   align-content: center;
   border-style: none;
   margin: 3px;
-  float: left;
   text-align: center;
-}
+}*/
 
-li a {
+/*li a {
   display: block;
   text-decoration: none;
   color: red;
@@ -21,4 +25,4 @@ li a {
 }
 li a:hover {
   background-color: lightskyblue;
-}
+}*/

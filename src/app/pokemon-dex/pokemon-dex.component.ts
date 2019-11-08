@@ -5,7 +5,7 @@ import { Pokedex, PokemonEntry } from "../pokeapi";
 @Component({
   selector: 'app-pokemon-dex',
   templateUrl: './pokemon-dex.component.html',
-  styleUrls: ['./pokemon-dex.component.css']
+  styleUrls: ['./pokemon-dex.component.scss']
 })
 export class PokemonDexComponent implements OnInit {
 
