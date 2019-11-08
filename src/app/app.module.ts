@@ -15,6 +15,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MoveSelectorComponent } from './pokemon-detail/move-selector/move-selector.component';
+import { TeamComponent } from './team/team.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { MoveSelectorComponent } from './pokemon-detail/move-selector/move-selec
     PokemonDexComponent,
     PokemonDetailComponent,
     NavComponent,
-    MoveSelectorComponent
+    MoveSelectorComponent,
+    TeamComponent
   ],
   imports: [
     BrowserModule,

@@ -17,6 +17,12 @@ export class PokemonEntry {
 export class PokemonSpecies {
   name: string;
   url: string;
+  names: [{
+    language: {
+      name: string;
+    }
+    name: string;
+  }]
 }
 
 export class Pokemon {
