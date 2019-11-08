@@ -1,10 +1,11 @@
 <h2>{{pokemon.id}} {{pokemon.name | uppercase}}</h2>
 <button mat-flat-button (click)="goBack()">{{ "go back" | uppercase }}</button>
+<app-move-selector></app-move-selector>
 <img *ngIf="pokemon.id > 0"
   src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{pokemon.id}}.png">
 <ul>
-  <li mat-flat-button mat-accent *ngFor="let move of moves">
-    <button mat-flat-button mat-accent (click)=addMove(move.name)>
+  <li *ngFor="let move of moves">
+    <button mat-flat-button mat-accent (click)=addMove(move)>
       {{getLocalizedMove(move, "en")}}
     </button>
   </li>
