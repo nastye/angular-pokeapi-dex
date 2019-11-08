@@ -3,13 +3,14 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import { ApiService } from '../api.service';
 import { Pokemon, PokemonMoveDetail, PokemonMove } from "../pokeapi";
-//import { MoveSelectorService } from "./move-selector.service";
+import { MoveService } from "./move.service";
 
 
 @Component({
   selector: 'app-pokemon-detail',
   templateUrl: './pokemon-detail.component.html',
-  styleUrls: ['./pokemon-detail.component.scss']
+  styleUrls: ['./pokemon-detail.component.scss'],
+  providers: [MoveService]
 })
 export class PokemonDetailComponent implements OnInit {
 
@@ -21,7 +22,7 @@ export class PokemonDetailComponent implements OnInit {
     private api: ApiService,
     private route: ActivatedRoute,
     private location: Location,
-    //  private moveSelector: MoveSelectorService
+    private moveService: MoveService
   ) { }
 
   ngOnInit() {
@@ -48,6 +49,10 @@ export class PokemonDetailComponent implements OnInit {
   }
 
   addMove(move: PokemonMoveDetail): void {
-    //  this.moveSelector.addMove(this.getLocalizedMove(move, "en"));
+    this.moveService.addMove(this.getLocalizedMove(move, "en"));
+  }
+
+  saveToTeam(): void {
+
   }
 }

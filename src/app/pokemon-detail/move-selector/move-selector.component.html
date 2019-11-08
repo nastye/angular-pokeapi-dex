@@ -1,1 +1,5 @@
-<p>move-selector works!</p>
+<ul>
+  <li *ngFor="let move of moveService.moves">
+    <button mat-stroked-button (click)="deleteMove(move)">{{move}}</button>
+  </li>
+</ul>

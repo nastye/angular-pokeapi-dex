@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges, OnChanges, Input } from '@angular/core';
+import { MoveService } from "../move.service";
 
 @Component({
   selector: 'app-move-selector',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MoveSelectorComponent implements OnInit {
 
-  constructor() { }
+  moves: string[] = new Array<string>(4);
 
-  ngOnInit() {
+  constructor(
+    public moveService: MoveService
+  ) {
   }
 
+  ngOnInit() { }
+
+  deleteMove(move: string): void {
+    this.moveService.deleteMove(move);
+  }
 }
