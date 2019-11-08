@@ -1,6 +1,6 @@
-<p>team works!</p>
-
 <div *ngFor="let pokemon of teamService.pokemons">
-  <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{pokemon.entry_number}}.png">
-  <span>{{pokemon.pokemon_species.name | titlecase}}</span>
+  <a mat-stroked-button routerLink="/pokemon/{{pokemon.id}}">
+    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{pokemon.id}}.png">
+    <span>{{pokemon.name | titlecase}}</span>
+  </a>
 </div>

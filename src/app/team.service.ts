@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
-import { PokemonEntry } from './pokeapi';
+import { TeamPokemon } from './TeamPokemon';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TeamService {
 
-  pokemons: PokemonEntry
+  pokemons: TeamPokemon[] = [];
 
   constructor() { }
+
+  addTeamPokemon(mon: TeamPokemon): void {
+    this.pokemons.push(mon);
+  }
 }

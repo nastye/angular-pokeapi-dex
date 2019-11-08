@@ -4,6 +4,7 @@ import { ActivatedRoute } from "@angular/router";
 import { ApiService } from '../api.service';
 import { Pokemon, PokemonMoveDetail, PokemonMove } from "../pokeapi";
 import { MoveService } from "./move.service";
+import { TeamService } from "../team.service";
 
 
 @Component({
@@ -22,7 +23,8 @@ export class PokemonDetailComponent implements OnInit {
     private api: ApiService,
     private route: ActivatedRoute,
     private location: Location,
-    private moveService: MoveService
+    private moveService: MoveService,
+    private teamService: TeamService
   ) { }
 
   ngOnInit() {
@@ -53,6 +55,11 @@ export class PokemonDetailComponent implements OnInit {
   }
 
   saveToTeam(): void {
-
+    this.teamService.addTeamPokemon({
+      id: this.pokemon.id,
+      name: this.pokemon.name,
+      moves: this.moveService.moves
+    });
+    this.moveService.moves = [];
   }
 }
