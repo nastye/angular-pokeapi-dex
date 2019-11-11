@@ -1,33 +1,43 @@
 import { Injectable } from '@angular/core';
 import { TeamPokemon } from './TeamPokemon';
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TeamService {
 
+  private baseUrl: string = '';
   pokemons: TeamPokemon[] = [];
   uuidv1 = require('uuid/v1');
-  constructor() { }
-
-  addTeamPokemon(mon: TeamPokemon): void {
-    if (this.pokemons.find(pokemon => pokemon.uuid === mon.uuid)) {
-      this.deleteTeamPokemon(mon);
-    }
-    this.pokemons.push(mon);
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
   }
 
-  deleteTeamPokemon(mon: TeamPokemon): void {
-    let newMons = [];
-    for (let pokemon of this.pokemons) {
-      if (pokemon.uuid !== mon.uuid) {
-        newMons.push(pokemon);
-      }
-    }
-    this.pokemons = newMons;
+  constructor(
+    private http: HttpClient
+  ) { }
+
+  updateTeamPokemon(mon: TeamPokemon): void {
+    this.http.put(`api/pokemon`, mon, this.httpOptions).subscribe();
   }
 
-  getTeamPokemonByUUID(uuid: string): TeamPokemon {
-    return this.pokemons.find(pokemon => pokemon.uuid === uuid);
+  addTeamPokemon(mon: TeamPokemon) {
+    this.http.post(`api/pokemon`, mon, this.httpOptions).subscribe();
+  }
+
+  deleteTeamPokemon(mon: TeamPokemon) {
+    this.http.delete(`api/pokemon/${mon.id}`).subscribe();
+  }
+
+  getTeamPokemonByUUID(id: number): Observable<TeamPokemon> {
+    return this.http.get<TeamPokemon>(`api/pokemon/${id}`);
+  }
+
+  getTeamPokemon(): Observable<TeamPokemon[]> {
+    return this.http.get<TeamPokemon[]>(`api/pokemon`);
   }
 }

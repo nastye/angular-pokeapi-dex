@@ -14,7 +14,9 @@ export class PokemonDexComponent implements OnInit {
   constructor(private api: ApiService) { }
 
   ngOnInit() {
-    this.api.getPokedex().subscribe(dex => this.pokemon_entries = dex.pokemon_entries)
+    this.api.getPokedex().subscribe(res => {
+      this.pokemon_entries = res.pokemon_entries;
+    });
   }
 
 }

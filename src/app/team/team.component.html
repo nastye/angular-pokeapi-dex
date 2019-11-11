@@ -1,13 +1,20 @@
-<div *ngFor="let pokemon of teamService.pokemons">
-  <div display="block">
-    <a mat-stroked-button routerLink="/pokemon/{{pokemon.id}}">
-      <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{pokemon.id}}.png">
+<div *ngFor="let pokemon of pokemons" style="text-align: center;">
+  <div style="margin: 2px; width: 240px">
+    <a mat-stroked-button routerLink="/pokemon/{{pokemon.sortId}}" style="width: 240px">
+      <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{pokemon.sortId}}.png">
       <span>{{pokemon.name | titlecase}}</span>
     </a>
-    <ul>
-      <li *ngFor="let move of pokemon.moves">{{move}}</li>
-    </ul>
+    <div>
+      <ul style="padding: 0">
+        <li *ngFor="let move of pokemon.moves" style="float: left"><a mat-stroked-button
+            style="width: 110px">{{move}}</a></li>
+      </ul>
+    </div>
+    <div style="margin: 2px; display: inline-block">
+      <a mat-stroked-button color="accent" routerLink="/pokemon/{{pokemon.sortId}}/{{pokemon.id}}">EDIT</a>
+    </div>
+    <div style="margin: 2px; display: inline-block">
+      <button mat-stroked-button color="warn" (click)="deleteTeamPokemon(pokemon)">DELETE</button>
+    </div>
   </div>
-  <a mat-stroked-button color="accent" routerLink="/pokemon/{{pokemon.id}}/{{pokemon.uuid}}">EDIT</a>
-  <button mat-stroked-button color="warn" (click)="teamService.deleteTeamPokemon(pokemon)">DELETE</button>
 </div>

@@ -5,6 +5,7 @@ import { ApiService } from '../api.service';
 import { Pokemon, PokemonMoveDetail, PokemonMove } from "../pokeapi";
 import { MoveService } from "./move.service";
 import { TeamService } from "../team.service";
+import { TeamPokemon } from '../TeamPokemon';
 
 
 @Component({
@@ -17,8 +18,8 @@ export class PokemonDetailComponent implements OnInit {
 
   uuidv1 = require('uuid/v1');
 
-  id: string;
-  uuid: string;
+  sortId: number;
+  id: number;
   pokemon: Pokemon = new Pokemon();
   moves: PokemonMoveDetail[] = [];
 
@@ -31,21 +32,23 @@ export class PokemonDetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.id = this.route.snapshot.paramMap.get('id');
-    this.uuid = this.route.snapshot.paramMap.get('uuid');
-    this.api.getPokemon(this.id).subscribe(
-      pokemon => {
-        this.pokemon = pokemon;
+    this.sortId = +this.route.snapshot.paramMap.get('sortId');
+    this.id = +this.route.snapshot.paramMap.get('id');
+    this.api.getPokemon(this.sortId).subscribe(res => {
+      this.pokemon = res
 
-        for (let move of this.pokemon.moves) {
-          this.api.getMove(move.move.name).subscribe(
-            move => this.moves.push(move)
-          );
-        }
+      for (let move of this.pokemon.moves) {
+        this.api.getMove(move.move.name).subscribe(res => {
+          this.moves.push(res);
+        })
       }
+    }
     );
-    if (this.uuid !== '0') {
-      this.moveService.setMoves(this.teamService.getTeamPokemonByUUID(this.uuid).moves);
+
+    if (this.id !== 0) {
+      this.teamService.getTeamPokemonByUUID(this.id).subscribe(res => {
+        this.moveService.moves = res.moves;
+      })
     }
   }
 
@@ -61,14 +64,21 @@ export class PokemonDetailComponent implements OnInit {
     this.moveService.addMove(this.getLocalizedMove(move, "en"));
   }
 
-  saveToTeam(): void {
-    let guuid = (this.uuid !== '0' ? this.uuid : this.uuidv1());
-    this.teamService.addTeamPokemon({
-      id: this.pokemon.id,
+  save(): void {
+    let pokemon: TeamPokemon = {
+      id: 0,
+      sortId: this.pokemon.id,
       name: this.pokemon.name,
-      moves: this.moveService.moves,
-      uuid: guuid
-    });
+      moves: this.moveService.moves
+    }
+    if (this.id === 0) {
+      pokemon.id = new Date().getTime();
+      this.teamService.addTeamPokemon(pokemon)
+      this.moveService.moves = [];
+      return;
+    }
+    pokemon.id = this.id;
+    this.teamService.updateTeamPokemon(pokemon);
     this.moveService.moves = [];
   }
 }

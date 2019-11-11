@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TeamService } from "../team.service";
+import { TeamPokemon } from '../TeamPokemon';
 
 @Component({
   selector: 'app-team',
@@ -8,11 +9,25 @@ import { TeamService } from "../team.service";
 })
 export class TeamComponent implements OnInit {
 
+  pokemons: TeamPokemon[];
+
   constructor(
     public teamService: TeamService
   ) { }
 
   ngOnInit() {
+    this.updateTeamPokemon();
+  }
+
+  updateTeamPokemon(): void {
+    this.teamService.getTeamPokemon().subscribe(res => {
+      this.pokemons = res;
+    });
+  }
+
+  deleteTeamPokemon(pokemon: TeamPokemon): void {
+    this.teamService.deleteTeamPokemon(pokemon);
+    this.updateTeamPokemon();
   }
 
 }
