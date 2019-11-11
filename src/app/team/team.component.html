@@ -1,6 +1,13 @@
 <div *ngFor="let pokemon of teamService.pokemons">
-  <a mat-stroked-button routerLink="/pokemon/{{pokemon.id}}">
-    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{pokemon.id}}.png">
-    <span>{{pokemon.name | titlecase}}</span>
-  </a>
+  <div display="block">
+    <a mat-stroked-button routerLink="/pokemon/{{pokemon.id}}">
+      <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{pokemon.id}}.png">
+      <span>{{pokemon.name | titlecase}}</span>
+    </a>
+    <ul>
+      <li *ngFor="let move of pokemon.moves">{{move}}</li>
+    </ul>
+  </div>
+  <a mat-stroked-button color="accent" routerLink="/pokemon/{{pokemon.id}}/{{pokemon.uuid}}">EDIT</a>
+  <button mat-stroked-button color="warn" (click)="teamService.deleteTeamPokemon(pokemon)">DELETE</button>
 </div>

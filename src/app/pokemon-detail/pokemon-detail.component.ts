@@ -15,7 +15,10 @@ import { TeamService } from "../team.service";
 })
 export class PokemonDetailComponent implements OnInit {
 
+  uuidv1 = require('uuid/v1');
+
   id: string;
+  uuid: string;
   pokemon: Pokemon = new Pokemon();
   moves: PokemonMoveDetail[] = [];
 
@@ -28,8 +31,9 @@ export class PokemonDetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    var id = this.route.snapshot.paramMap.get('id');
-    this.api.getPokemon(id).subscribe(
+    this.id = this.route.snapshot.paramMap.get('id');
+    this.uuid = this.route.snapshot.paramMap.get('uuid');
+    this.api.getPokemon(this.id).subscribe(
       pokemon => {
         this.pokemon = pokemon;
 
@@ -39,7 +43,10 @@ export class PokemonDetailComponent implements OnInit {
           );
         }
       }
-    )
+    );
+    if (this.uuid !== '0') {
+      this.moveService.setMoves(this.teamService.getTeamPokemonByUUID(this.uuid).moves);
+    }
   }
 
   getLocalizedMove(move: PokemonMoveDetail, locale: string): string {
@@ -55,10 +62,12 @@ export class PokemonDetailComponent implements OnInit {
   }
 
   saveToTeam(): void {
+    let guuid = (this.uuid !== '0' ? this.uuid : this.uuidv1());
     this.teamService.addTeamPokemon({
       id: this.pokemon.id,
       name: this.pokemon.name,
-      moves: this.moveService.moves
+      moves: this.moveService.moves,
+      uuid: guuid
     });
     this.moveService.moves = [];
   }

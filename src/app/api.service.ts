@@ -11,35 +11,53 @@ import { stringify } from 'querystring';
 export class ApiService {
 
   private baseUrl: string = 'https://pokeapi.co/api/v2/';
+  private cache: {
+    [request: string]: Object;
+  } = {};
 
   constructor(private http: HttpClient) { }
 
   getPokedex(): Observable<Pokedex> {
-    return this.http.get<Pokedex>(`${this.baseUrl}pokedex/2/`).pipe(
-      catchError((err, caught) => {
-        console.log('error fetching pokedex');
-        return new Observable<Pokedex>();
-      })
-    )
+    let request = 'pokedex/2/';
+    if (this.cache[request]) {
+      return of(this.cache[request] as Pokedex)
+    } else {
+      return this.http.get<Pokedex>(`${this.baseUrl}${request}`).pipe(
+        catchError((err, caught) => {
+          console.log('error fetching pokedex');
+          return new Observable<Pokedex>();
+        })
+      );
+    }
   }
 
   getPokemon(id: string | number): Observable<Pokemon> {
-    return this.http.get<Pokemon>(`${this.baseUrl}pokemon/${id}/`).pipe(
-      //tap(pokemon => console.log(pokemon)),
-      catchError((err, caught) => {
-        console.log(`error fetching pokemon id=${id}`);
-        return new Observable<Pokemon>();
-      })
-    )
+    let request = `pokemon/${id}/`
+    if (this.cache[request]) {
+      return of(this.cache[request] as Pokemon)
+    } else {
+      return this.http.get<Pokemon>(`${this.baseUrl}${request}`).pipe(
+        //tap(pokemon => console.log(pokemon)),
+        catchError((err, caught) => {
+          console.log(`error fetching pokemon id=${id}`);
+          return new Observable<Pokemon>();
+        })
+      );
+    }
   }
 
   getMove(id: string | number): Observable<PokemonMoveDetail> {
-    return this.http.get<PokemonMoveDetail>(`${this.baseUrl}move/${id}/`).pipe(
-      //tap(move => console.log(move)),
-      catchError((err, caught) => {
-        console.log(`error fetching move id=${id}`);
-        return new Observable<PokemonMoveDetail>();
-      })
-    )
+    let request = `move/${id}/`
+    if (this.cache[request]) {
+      return of(this.cache[request] as PokemonMoveDetail)
+    } else {
+      return this.http.get<PokemonMoveDetail>(`${this.baseUrl}${request}`).pipe(
+        //tap(move => console.log(move)),
+        catchError((err, caught) => {
+          console.log(`error fetching move id=${id}`);
+          return new Observable<PokemonMoveDetail>();
+        })
+      );
+    }
   }
 }

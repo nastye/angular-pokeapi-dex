@@ -7,7 +7,8 @@ import { TeamComponent } from './team/team.component';
 
 const routes: Routes = [
   { path: '', component: PokemonDexComponent, pathMatch: 'full' },
-  { path: 'pokemon/:id', component: PokemonDetailComponent },
+  { path: 'pokemon/:id', redirectTo: 'pokemon/:id/0' },
+  { path: 'pokemon/:id/:uuid', component: PokemonDetailComponent },
   { path: 'team', component: TeamComponent }
 ];
 
