@@ -22,7 +22,7 @@ export class TeamService {
   ) { }
 
   updateTeamPokemon(mon: TeamPokemon): void {
-    this.http.put(`api/pokemon`, mon, this.httpOptions).subscribe();
+    this.http.put(`api/pokemon/${mon.id}`, mon, this.httpOptions).subscribe();
   }
 
   addTeamPokemon(mon: TeamPokemon) {
