@@ -16,8 +16,6 @@ import { TeamPokemon } from '../TeamPokemon';
 })
 export class PokemonDetailComponent implements OnInit {
 
-  uuidv1 = require('uuid/v1');
-
   sortId: number;
   id: number;
   pokemon: Pokemon = new Pokemon();

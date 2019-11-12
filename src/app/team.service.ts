@@ -10,7 +10,6 @@ export class TeamService {
 
   private baseUrl: string = '';
   pokemons: TeamPokemon[] = [];
-  uuidv1 = require('uuid/v1');
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
