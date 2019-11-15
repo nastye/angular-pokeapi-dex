@@ -1,6 +1,6 @@
 <h2>{{pokemon.id}} {{pokemon.name | uppercase}}</h2>
 <button mat-stroked-button color="accent" (click)="goBack()">{{ "GO BACK" }}</button>
-<a routerLink="/team"><button mat-stroked-button color="accent" (click)="save()">{{ "SAVE TO TEAM" }}</button></a>
+<button mat-stroked-button color="accent" (click)="save()">{{ "SAVE TO TEAM" }}</button>
 <app-move-selector></app-move-selector>
 <img *ngIf="pokemon.id > 0"
   src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{pokemon.id}}.png">

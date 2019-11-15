@@ -64,19 +64,12 @@ export class PokemonDetailComponent implements OnInit {
 
   save(): void {
     let pokemon: TeamPokemon = {
-      id: 0,
+      id: (this.id === 0 ? new Date().getTime() : this.id),
       sortId: this.pokemon.id,
       name: this.pokemon.name,
       moves: this.moveService.moves
     }
-    if (this.id === 0) {
-      pokemon.id = new Date().getTime();
-      this.teamService.addTeamPokemon(pokemon)
-      this.moveService.moves = [];
-      return;
-    }
-    pokemon.id = this.id;
-    this.teamService.updateTeamPokemon(pokemon);
+    this.teamService.updateTeamPokemon(pokemon).subscribe();
     this.moveService.moves = [];
   }
 }

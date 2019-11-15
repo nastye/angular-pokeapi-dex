@@ -12,7 +12,7 @@ export class InMemoryDataService implements InMemoryDbService {
     let pokemon = [];
     let team = [];
 
-    return { team, pokemon };
+    return {};
   }
 
 }

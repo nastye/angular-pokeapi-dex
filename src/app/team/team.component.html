@@ -4,7 +4,7 @@
       <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{pokemon.sortId}}.png">
       <span>{{pokemon.name | titlecase}}</span>
     </a>
-    <div>
+    <div style="display: block">
       <ul style="padding: 0">
         <li *ngFor="let move of pokemon.moves" style="float: left"><a mat-stroked-button
             style="width: 110px">{{move}}</a></li>

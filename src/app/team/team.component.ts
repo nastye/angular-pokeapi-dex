@@ -20,14 +20,11 @@ export class TeamComponent implements OnInit {
   }
 
   updateTeamPokemon(): void {
-    this.teamService.getTeamPokemon().subscribe(res => {
-      this.pokemons = res;
-    });
+    this.teamService.getTeamPokemon().subscribe(res => this.pokemons = res);
   }
 
   deleteTeamPokemon(pokemon: TeamPokemon): void {
-    this.teamService.deleteTeamPokemon(pokemon);
-    this.updateTeamPokemon();
+    this.teamService.deleteTeamPokemon(pokemon).subscribe(res => this.pokemons = res);
   }
 
 }

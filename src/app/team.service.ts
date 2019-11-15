@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class TeamService {
 
-  private baseUrl: string = '';
+  private baseUrl: string = 'http://localhost:8080/';
   pokemons: TeamPokemon[] = [];
   httpOptions = {
     headers: new HttpHeaders({
@@ -20,23 +20,23 @@ export class TeamService {
     private http: HttpClient
   ) { }
 
-  updateTeamPokemon(mon: TeamPokemon): void {
-    this.http.put(`api/pokemon/${mon.id}`, mon, this.httpOptions).subscribe();
+  updateTeamPokemon(mon: TeamPokemon): Observable<TeamPokemon[]> {
+    return this.http.put<TeamPokemon[]>(`${this.baseUrl}api/pokemon/${mon.id}`, mon, this.httpOptions);
   }
 
-  addTeamPokemon(mon: TeamPokemon) {
-    this.http.post(`api/pokemon`, mon, this.httpOptions).subscribe();
+  addTeamPokemon(mon: TeamPokemon): Observable<TeamPokemon[]> {
+    return this.http.post<TeamPokemon[]>(`${this.baseUrl}api/pokemon`, mon, this.httpOptions);
   }
 
-  deleteTeamPokemon(mon: TeamPokemon) {
-    this.http.delete(`api/pokemon/${mon.id}`).subscribe();
+  deleteTeamPokemon(mon: TeamPokemon): Observable<TeamPokemon[]> {
+    return this.http.delete<TeamPokemon[]>(`${this.baseUrl}api/pokemon/${mon.id}`);
   }
 
   getTeamPokemonByUUID(id: number): Observable<TeamPokemon> {
-    return this.http.get<TeamPokemon>(`api/pokemon/${id}`);
+    return this.http.get<TeamPokemon>(`${this.baseUrl}api/pokemon/${id}`);
   }
 
   getTeamPokemon(): Observable<TeamPokemon[]> {
-    return this.http.get<TeamPokemon[]>(`api/pokemon`);
+    return this.http.get<TeamPokemon[]>(`${this.baseUrl}api/pokemon`);
   }
 }
